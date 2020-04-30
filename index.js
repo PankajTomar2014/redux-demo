@@ -4,7 +4,7 @@ const ReduxStore= redux.createStore         // create  store
 
 const initialState = {                      // State  
     numberOfBooks:10,
-    // MyName:'PANKAJ_HASMUKH'
+    numberOfPens:15,   
 };
 
 // const action = {                            // created action
@@ -14,7 +14,13 @@ const initialState = {                      // State
 function buyBook(){                         // call action via buyBook function
     return {                            // created action
         type:'Buy_book',
-        info:'my first redux programe'
+        info:'my Second redux programe'
+    }
+}
+function buyPen(){                         // call action via buyBook function
+    return {                            // created action
+        type:'Buy_Pen',
+        info:'my Second redux programe'
     }
 }
 
@@ -24,6 +30,10 @@ const reducer=( state=initialState,action ) => {
         case'Buy_book' : return{
             ...state,                                     // clone the state
             numberOfBooks:state.numberOfBooks-1,
+        }
+        case'Buy_Pen' : return{
+            ...state,                                     // clone the state
+            numberOfPens:state.numberOfPens-1,
         }
         default :return state;
     }
@@ -35,6 +45,8 @@ console.log("INITIAL STATE -=>",store.getState());   // allow access the state v
 const unsubscribe= store.subscribe(()=>{ console.log('UPDATED STATE-=-=>>>',store.getState())  })    // register listner via subscribe(listener)
 store.dispatch(buyBook()); //allow state to be update via dispatch(action)
 store.dispatch(buyBook()); 
-store.dispatch(buyBook()); 
-store.dispatch(buyBook()); 
+store.dispatch(buyBook());
+store.dispatch(buyPen()); 
+store.dispatch(buyPen()); 
+store.dispatch(buyPen()); 
 unsubscribe();
