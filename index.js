@@ -1,7 +1,9 @@
 
-const redux = require('redux')              // import redux
-const ReduxStore= redux.createStore         // create  store
-const combineReducer = redux.combineReducers
+const redux = require('redux')              // import redux from redux
+const ReduxStore= redux.createStore         // import store from redux
+const combineReducer = redux.combineReducers  // import combineReducers from redux
+const applyMiddleWare = redux.applyMiddleware  // import applyMiddleware from redux
+
 const initialStateBooks = {                      // State  
     numberOfBooks:10,
   
@@ -49,7 +51,16 @@ const reducer= combineReducer({    // combine first and Second reducers in one r
     Books:bookReducer,          
     Pen:pensReducer,
 })  
-const store = ReduxStore(reducer)  // pass the main reducer as argument.
+const logger = store=>{    // apply middleWare here
+    return next =>{
+        return action =>{
+            const result=next(action);
+            console.log("MidleWare Logger=-=->>",result)
+            return result;
+        }
+    }
+} 
+const store = ReduxStore(reducer,applyMiddleWare(logger))  // pass the main reducer as argument and applyMiddleWare
 
 console.log("INITIAL STATE -=-=>>",store.getState());   // allow access the state via getState()
 const unsubscribe= store.subscribe(()=>{ console.log('UPDATED STATE-=-=>>>',store.getState())  })    // register listner via subscribe(listener)
