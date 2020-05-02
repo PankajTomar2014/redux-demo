@@ -1,10 +1,10 @@
 
-const redux = require('redux')              // import redux from redux
-const ReduxStore= redux.createStore         // import store from redux
-const combineReducer = redux.combineReducers  // import combineReducers from redux
+const redux = require('redux')                 // import redux from redux
+const ReduxStore= redux.createStore            // import store from redux
+const combineReducer = redux.combineReducers   // import combineReducers from redux
 const applyMiddleWare = redux.applyMiddleware  // import applyMiddleware from redux
 
-const initialStateBooks = {                      // State  
+const initialStateBooks = {                    // State  
     numberOfBooks:10,
   
 };
@@ -22,13 +22,13 @@ function buyBook(){                         // call action via buyBook function
     }
 }
 function buyPen(){                         // call action via buyBook function
-    return {                            // created action
+    return {                               // created action
         type:'Buy_Pen',
         info:'my Second redux programe'
     }
 }
 // reducer take two argument such as =-=>>>> reducer(previous_State,action)
-const bookReducer=( state=initialStateBooks,action ) => {  //first reducer
+const bookReducer=(state=initialStateBooks,action) => {  //first reducer
     switch(action.type){
         case'Buy_book' : return{
             ...state,                                     // clone the state
@@ -37,7 +37,7 @@ const bookReducer=( state=initialStateBooks,action ) => {  //first reducer
         default :return state;
     }
 }
-const pensReducer=( state=initialStatePens,action ) => {   //Second reducer
+const pensReducer=(state=initialStatePens,action) => {   //Second reducer
     switch(action.type){
         case'Buy_Pen' : return{
             ...state,                                     // clone the state
@@ -47,7 +47,7 @@ const pensReducer=( state=initialStatePens,action ) => {   //Second reducer
     }
 }
 // NOW CALL REDUX_STORE BY CALL THE REDUCER
-const reducer= combineReducer({    // combine first and Second reducers in one reducer function
+const reducer= combineReducer({ // combine first and Second reducers in one reducer function
     Books:bookReducer,          
     Pen:pensReducer,
 })  
@@ -63,7 +63,7 @@ const logger = store=>{    // apply middleWare here
 const store = ReduxStore(reducer,applyMiddleWare(logger))  // pass the main reducer as argument and applyMiddleWare
 
 console.log("INITIAL STATE -=-=>>",store.getState());   // allow access the state via getState()
-const unsubscribe= store.subscribe(()=>{ console.log('UPDATED STATE-=-=>>>',store.getState())  })    // register listner via subscribe(listener)
+const unsubscribe=store.subscribe(()=>{console.log('UPDATED STATE-=-=>>>',store.getState())})    // register listner via subscribe(listener)
 store.dispatch(buyBook()); //allow state to be update via dispatch(action)
 store.dispatch(buyBook()); 
 store.dispatch(buyBook());
